@@ -97,4 +97,4 @@ target_names = [
 mapper = {k: v for k, v in zip(target_cols, target_names)}
 df.rename(mapper, axis=1, inplace=True)
 COLS.extend(mapper.values())
-df[COLS].to_csv("data/models_data2.csv", index=False)
+df[COLS].to_csv("data/models_data3.csv", index=False)
