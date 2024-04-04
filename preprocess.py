@@ -67,7 +67,8 @@ COLS.append("sector")
 COLS.append("MPCE_qrt")
 COLS.append("piped_gas")
 COLS.extend(["wired_source", "washing_type", "sweeeping_type"])
-COLS.extend(["child", "old", "n_unemp_men", "employed_help"])
+COLS.extend(["child", "old", "n_unemp_men", "employed_help", "old_child"])
+COLS.append("pweight")
 
 # Adding other columns that were excluded accidentally
 COLS.extend(['special_need', 'n_working_women'])
@@ -97,4 +98,4 @@ target_names = [
 mapper = {k: v for k, v in zip(target_cols, target_names)}
 df.rename(mapper, axis=1, inplace=True)
 COLS.extend(mapper.values())
-df[COLS].to_csv("data/models_data3.csv", index=False)
+df[COLS].to_csv("data/models_data5.csv", index=False)
