@@ -31,9 +31,7 @@ def enc_usual_principal_activity(val):
 
 
 df["employment"] = (
-    df["usual_principal_activity__status"]
-    .map(enc_usual_principal_activity)
-    .astype("category")
+    df["usual_principal_activity__status"].map(enc_usual_principal_activity).astype("category")
 )
 df["employment"] = df["employment"].cat.reorder_categories(
     ["Not Employed", "Self-Employed", "Salaried Employee", "Casual Labour"],
@@ -52,26 +50,34 @@ df["marital_status"] = df["marital_status"].cat.reorder_categories(
     ["Never Married", "Currently Married", "Widowed", "Divorced"], ordered=True
 )
 
-COLS = ["Age", "Gender", "state_codes"]
-COLS.extend(
-    ["Total Children in HH", "Total Women in HH", "Total Additional Women in HH"]
-)
-# COLS.extend(["paid_activity_time", "unpaid_activity_time"])
-COLS.append("education")
-COLS.append("marital_status")
-COLS.append("employment")
-COLS.append("Social_group_")
-COLS.append("religion")
 df["sector"].replace({1.0: "Rural", 2.0: "Urban"}, inplace=True)
-COLS.append("sector")
-COLS.append("MPCE_qrt")
-COLS.append("piped_gas")
-COLS.extend(["wired_source", "washing_type", "sweeeping_type"])
-COLS.extend(["child", "old", "n_unemp_men", "employed_help", "old_child"])
-COLS.append("pweight")
-
-# Adding other columns that were excluded accidentally
-COLS.extend(['special_need', 'n_working_women'])
+COLS = [
+    "Age",
+    "Gender",
+    "state_codes",
+    "Total Children in HH",
+    "Total Women in HH",
+    "Total Additional Women in HH",
+    "education",
+    "marital_status",
+    "employment",
+    "Social_group_",
+    "religion",
+    "sector",
+    "MPCE_qrt",
+    "piped_gas",
+    "wired_source",
+    "washing_type",
+    "sweeeping_type",
+    "child",
+    "old",
+    "n_unemp_men",
+    "employed_help",
+    "old_child",
+    "pweight",
+    "special_need",
+    "n_working_women",
+]
 
 target_cols = [
     "paid_activity_time",
@@ -83,6 +89,8 @@ target_cols = [
     "washing_time",
     "hh_time",
     "care_time",
+    "collection_time",
+    "collection_preparation_time",
 ]
 target_names = [
     "Time Spent on Paid Work",
@@ -94,8 +102,10 @@ target_names = [
     "Time Spent Washing",
     "Time Spent on Domestic Chores",
     "Time Spent on Care Work",
+    "Time Spent on Collection for Consumption",
+    "Time Spent on Collection and Cooking",
 ]
 mapper = {k: v for k, v in zip(target_cols, target_names)}
 df.rename(mapper, axis=1, inplace=True)
 COLS.extend(mapper.values())
-df[COLS].to_csv("data/models_data5.csv", index=False)
+df[COLS].to_csv("data/models_data6.csv", index=False)
